@@ -1,5 +1,11 @@
 module Anniversary exposing (getYears, isDay)
 
+{-| Perform basic anniversary calculations
+
+@docs getYears, isDay
+
+-}
+
 import Time exposing (Month(..), toDay, toMonth, toYear)
 
 
@@ -54,6 +60,8 @@ getDate zone time =
     }
 
 
+{-| Calculates the number of anniversary years passed
+-}
 getYears : Time.Zone -> Time.Posix -> DayMonthYear -> Int
 getYears currentZone currentTime birthDate =
     let
@@ -95,6 +103,8 @@ type alias DayMonth a =
     { a | day : Int, month : Int }
 
 
+{-| Returns a Bool on whether or not the provided Time.Zone / Time.Posix occurs on the anniversary
+-}
 isDay : Time.Zone -> Time.Posix -> DayMonth a -> Bool
 isDay currentZone currentTime anniversaryDate =
     let

@@ -15,5 +15,13 @@ This package takes a Time.Zone, Time.Posix as well as a simple anniversary recor
 False : Bool
 
 > Anniversary.getYears utc testPosix { day = 20, month = 3, year = 2012  }
-11 : Int  
+11 : Int
+
+> Anniversary.getNext utc testPosix { day = 20, month = 3 }
+{ day = 20, month = 3, year = 2024 }
+    : Anniversary.DayMonthYear
+
+> Anniversary.getLast utc testPosix { day = 20, month = 3 }
+{ day = 20, month = 3, year = 2023 }
+    : Anniversary.DayMonthYear
 ```

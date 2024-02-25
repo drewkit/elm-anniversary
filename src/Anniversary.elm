@@ -1,11 +1,8 @@
-module Anniversary exposing
-    ( getYears, isDay
-    , getLast, getNext
-    )
+module Anniversary exposing (getYears, isDay, getNext, getLast)
 
 {-| Perform basic anniversary calculations
 
-@docs getYears, isDay
+@docs getYears, isDay, getNext, getLast
 
 -}
 
@@ -132,6 +129,8 @@ isDay currentZone currentTime anniversaryDate =
             False
 
 
+{-| Returns a DayMonthYear record for anniversary's next occurrence
+-}
 getNext : Time.Zone -> Time.Posix -> DayMonth a -> DayMonthYear
 getNext currentZone currentTime anniversaryDate =
     let
@@ -168,6 +167,8 @@ getNext currentZone currentTime anniversaryDate =
     }
 
 
+{-| Returns a DayMonthYear record for anniversary's last occurrence
+-}
 getLast : Time.Zone -> Time.Posix -> DayMonth a -> DayMonthYear
 getLast currentZone currentTime anniversaryDate =
     let

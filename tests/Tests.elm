@@ -85,3 +85,55 @@ getAnniversaryYears =
                     (getYears utc testPosix { day = 11, month = 9, year = 2001 })
             )
         ]
+
+
+getNextAnniversary : Test
+getNextAnniversary =
+    Test.describe "Anniversary.getNext"
+        [ test "provides DayMonthYear record for next occurrence of anniversary"
+            (\_ ->
+                Expect.equal { day = 30, month = 3, year = 2024 }
+                    (Anniversary.getNext utc testPosix { day = 30, month = 3 })
+            )
+        , test "run2"
+            (\_ ->
+                Expect.equal { day = 10, month = 11, year = 2023 }
+                    (Anniversary.getNext utc testPosix { day = 10, month = 11 })
+            )
+        , test "run3"
+            (\_ ->
+                Expect.equal { day = 4, month = 4, year = 2024 }
+                    (Anniversary.getNext utc testPosix { day = 4, month = 4 })
+            )
+        , test "if current day is date of anniversary, then the next occurrence will be next year"
+            (\_ ->
+                Expect.equal { day = 6, month = 10, year = 2024 }
+                    (Anniversary.getNext utc testPosix { day = 6, month = 10 })
+            )
+        ]
+
+
+getLastAnniversary : Test
+getLastAnniversary =
+    Test.describe "Anniversary.getLast"
+        [ test "provides DayMonthYear record for last occurrence of anniversary"
+            (\_ ->
+                Expect.equal { day = 30, month = 3, year = 2023 }
+                    (Anniversary.getLast utc testPosix { day = 30, month = 3 })
+            )
+        , test "run2"
+            (\_ ->
+                Expect.equal { day = 10, month = 11, year = 2022 }
+                    (Anniversary.getLast utc testPosix { day = 10, month = 11 })
+            )
+        , test "run3"
+            (\_ ->
+                Expect.equal { day = 4, month = 4, year = 2023 }
+                    (Anniversary.getLast utc testPosix { day = 4, month = 4 })
+            )
+        , test "if current day is date of anniversary, then the last occurrence is from last year"
+            (\_ ->
+                Expect.equal { day = 6, month = 10, year = 2022 }
+                    (Anniversary.getLast utc testPosix { day = 6, month = 10 })
+            )
+        ]

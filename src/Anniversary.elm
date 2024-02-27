@@ -1,4 +1,7 @@
-module Anniversary exposing (getYears, isDay)
+module Anniversary exposing
+    ( getYears, isDay
+    , getLast, getNext
+    )
 
 {-| Perform basic anniversary calculations
 
@@ -127,3 +130,75 @@ isDay currentZone currentTime anniversaryDate =
 
         ( _, _ ) ->
             False
+
+
+getNext : Time.Zone -> Time.Posix -> DayMonth a -> DayMonthYear
+getNext currentZone currentTime anniversaryDate =
+    let
+        currentDate =
+            getDate currentZone currentTime
+
+        comparedMonth =
+            compare currentDate.month anniversaryDate.month
+
+        comparedDay =
+            compare currentDate.day anniversaryDate.day
+
+        yearOfNextAnniversary =
+            case
+                ( comparedMonth
+                , comparedDay
+                )
+            of
+                ( EQ, LT ) ->
+                    currentDate.year
+
+                ( EQ, _ ) ->
+                    currentDate.year + 1
+
+                ( LT, _ ) ->
+                    currentDate.year
+
+                ( GT, _ ) ->
+                    currentDate.year + 1
+    in
+    { day = anniversaryDate.day
+    , month = anniversaryDate.month
+    , year = yearOfNextAnniversary
+    }
+
+
+getLast : Time.Zone -> Time.Posix -> DayMonth a -> DayMonthYear
+getLast currentZone currentTime anniversaryDate =
+    let
+        currentDate =
+            getDate currentZone currentTime
+
+        comparedMonth =
+            compare currentDate.month anniversaryDate.month
+
+        comparedDay =
+            compare currentDate.day anniversaryDate.day
+
+        yearOfLastAnniversary =
+            case
+                ( comparedMonth
+                , comparedDay
+                )
+            of
+                ( EQ, GT ) ->
+                    currentDate.year
+
+                ( EQ, _ ) ->
+                    currentDate.year - 1
+
+                ( LT, _ ) ->
+                    currentDate.year - 1
+
+                ( GT, _ ) ->
+                    currentDate.year
+    in
+    { day = anniversaryDate.day
+    , month = anniversaryDate.month
+    , year = yearOfLastAnniversary
+    }
